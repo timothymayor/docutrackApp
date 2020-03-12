@@ -1,0 +1,348 @@
+<!--POST VIEW STARTS HERE -->
+<% if (title == 'Create Document') { %>
+    <div class="col-sm-12">    
+        <div class="jumbotron col-sm-8 m-auto">
+            <form action="/doc/document/create" method="POST">
+              <label for="subject">Subject:</label>
+              <input type="text" name="subject" placeholder="Document Subject" class="form-control" required>
+              <input type="text" name="employee_id"  required hidden>
+              <br><br>
+              <label for="description">Description:</label>
+              <input type="text" name="description" placeholder="Document Description" class="form-control" required>
+              <br><br>
+              
+              <label for="status">Status:</label>
+                  <label class="radio">
+                    <input type="radio" name="status" value="Draft">
+                      Draft
+                  </label>
+                  <label class="radio">
+                    <input type="radio" name="status" value="Published">
+                      Publish
+                  </label>              
+              <br><br>
+              <label for="application_id">Application:</label>
+              <select name="application_id" placeholder="Application" class="form-control" required>
+                  <option value=""> --Select-- </option>
+                  <% applications.forEach(application=>{ %>
+                    <option value="<%=application.id%>"><%=application.title%></option>
+                  <% })%>
+              </select>
+              <br><br>
+              <label for="category_id">Category:</label>
+              <select name="category_id" placeholder="Document Category" class="form-control" required>
+                  <option value=""> --Select-- </option>
+                  <% categories.forEach(category=>{ %>
+                    <option value="<%=category.id%>"><%=category.title%></option>
+                  <% })%>
+              </select>
+              <br><br>
+              <label for="type_id">Document Type:</label>
+              <select name="type_id" placeholder="Document Type" class="form-control" required>
+                  <option value=""> --Select-- </option>
+                  <% types.forEach(type=>{ %>
+                    <option value="<%=type.id%>"><%=type.name%></option>
+                  <% })%>
+              </select>
+              <br><br>
+              <button type="submit" class="form-control btn btn-primary">Create Document</button>
+            </form>
+        </div>
+    </div>
+<% } else if (title == 'Delete Document') { %>
+     
+<% } else if (title == 'Update Document') { %>
+    <div class="col-sm-12">    
+        <div class="jumbotron col-sm-8 m-auto">
+            <form action="/doc/document/<%= document.id %>/update" method="post">
+              <label for="subject">Document Subject:</label>
+              <input type="text" name="subject" value="<%= document.subject %>" class="form-control" required>
+              <br><br>
+              <label for="description">Document Description:</label>
+              <input type="text" name="description" value="<%= document.description %>" class="form-control" required>
+              <br><br>
+              <label for="status">Status:</label>
+                <% if(document.status == 'Published'){ %>
+                  <label class="radio">
+                    <input type="radio" name="status" value="Draft">
+                      Draft
+                  </label>
+                  <label class="radio">
+                    <input type="radio" name="status" value="Published" checked>
+                      Publish
+                  </label>
+                <% } else{ %>
+                  <label class="radio">
+                    <input type="radio" name="status" value="Draft" checked>
+                      Draft
+                  </label>
+                  <label class="radio">
+                    <input type="radio" name="status" value="Published">
+                      Publish
+                  </label>
+                <% } %>              
+              <br><br>
+              <label for="application_id">Application:</label>
+              <select name="application_id" placeholder="Application" class="form-control" required>
+                <option value=""> --Select-- </option>
+                <% applications.forEach(application=>{ 
+                    if (document.ApplicationId == application.id){ %>
+                  <option value="<%=application.id%>" selected><%=application.title%></option>
+                  <% }else{ %>
+                  <option value="<%=application.id%>"><%=application.title%></option>
+                  <% }
+                })%>
+            </select>
+            <br><br>
+            <label for="category_id">Category:</label>
+            <select name="category_id" id="category_id" placeholder="Document Category" class="form-control" required>
+                <option value=""> --Select-- </option>
+                <% categories.forEach(category=>{ 
+                  if (document.CategoryId === category.id){ %>
+                  <option value="<%=category.id%>" selected><%=category.title%></option>
+                  <% }else{ %>
+                  <option value="<%=category.id%>"><%=category.title%></option>
+                  <% }
+                })%>
+            </select>
+            <br><br>
+            <label for="type_id">Document Type:</label>
+            <select name="type_id" placeholder="Document Type" class="form-control" required>
+                <option value=""> --Select-- </option>
+                <% types.forEach(type=>{ 
+                  if (document.TypeId == type.id){ %>
+                  <option value="<%=type.id%>" selected><%=type.name%></option>
+                  <% }else{ %>
+                  <option value="<%=type.id%>"><%=type.name%></option>
+                  <% }
+                })%>
+            </select>
+              <br><br>
+              <button type="submit" class="form-control btn btn-primary">Update Document</button>
+            </form>
+        </div>
+    </div>
+              
+<% } else if (title == 'Document Details') { %>
+    <div class="col-sm-12 p-3">    
+        <div class="col-sm-8 m-auto py-5">
+        
+            <h5 class="text-center"><strong>Document details</strong></h5>
+            <h6><strong>Subject: <%= document.subject %></strong></h6>
+            <p><strong>Description:</strong>  <%= document.description %></p>
+            <p><strong>Owner:</strong>  <%= employee.first_name %> <%= employee.last_name %></p>
+            <p><strong>Category:</strong> <%= category.title%> </p>
+            <p><strong>Type:</strong> <%= type.name%> </p>
+            <p><strong>Status:</strong> <%= document.status %> </p>
+            <% if(document.status == 'Published') { %>
+              <a href="/doc/document/<%= document.id %>/draft">Unpublish Document</a>
+            <% } else { %>
+              <a href="/doc/document/<%= document.id %>/publish">Publish Document</a>
+            <% } %> | 
+            <a href="/doc/document/<%= document.id %>/update">Edit Document</a> | <a href="/doc/document/<%= document.id %>/delete">Delete Document</a>
+        </div>
+        <div class="content-inner bg-light">
+          <section id="premium-themes" class="doc-section">
+            <h5 class="text-center mb-3">All Comments on this Document</h5>
+            <% if (comments.length !== 0){ %>
+              <div class="col-12">
+                  <div class="item-inner">
+                    <ul style="list-style-type: none;">
+                      <% comments.forEach(function(comment) { %>
+                        <li class="my-3">
+                          <p>==> <strong><%= comment.title %></strong> </p>
+                            <blockquote style="border-left:lightslategrey solid 7px; padding-left: 10px;"><%= comment.description %></blockquote>
+                            <h6 class="text-right"><strong>Comment by <%= comment.EmployeeId %></strong></h6>
+                            <a href="/doc/comment/<%= comment.id %>/update">Edit Comment</a> | <a href="/doc/comment/<%= comment.id %>/delete">Delete Comment</a>
+                        </li>
+                      <% }); %>
+                    </ul>
+                  </div><!--//item-inner-->
+              </div><!--//item-->
+              <% } else { %>
+              <div class="col-12">
+                  <div class="item-inner">
+                      <h6>Oops! No Comment here.</h6>
+                  </div><!--//item-inner-->
+              </div><!--//item-->
+            <% } %>
+            
+            <!--Form to post comment-->
+            <div class="pt-5 col-12">
+              <h6 class="px-3 ">Post a new comment </h6>
+              <form action="/doc/comment/create" method="post" class="col-12">
+                    <label for="title">Comment Title:</label><br>
+                    <input type="text" name="title" placeholder="Comment Title" required class="form-control">
+                    <br>
+                    <label for="description">Comment Body:</label><br>
+                    <textarea type="text" rows="3" name="description" placeholder="Comment Body" required class="form-control"></textarea>
+                    <br>
+                    <input type="hidden" name="document_id" value="<%= document.id %>">
+                    <input type="hidden" name="employee_id">
+                    <% if(document.status == 'Published') { %>
+                      <button type="submit" class="btn btn-primary" title="Create Comment">Create Comment</button>
+                    <% } else { %>
+                      <button type="submit" class="btn btn-primary" disabled title="Can't Create Comment, document not yet published!">Create Comment</button>
+                    <% } %>
+              </form>
+            </div>
+          </section>
+        </div>
+    </div>
+<% } else if (title == 'Document List') { %>
+            <div class="container">
+    <div class="doc-wrapper col-sm-12">
+                <div id="doc-header" class="doc-header text-center">
+                    <h1 class="doc-title"><span aria-hidden="true" class="icon icon_book"></span> Documents</h1>
+                </div><!--//doc-header-->
+                
+                <div id="showcase" class="doc-body row">
+                    <div class="doc-content col-md-9 col-12 order-1">
+                        <div class="content-inner">
+                          
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-primary my-3" data-toggle="modal" data-target="#createDocument">
+                                  Create a Documentation
+                                </button>
+                                
+                                <!-- Modal -->
+                                <div class="modal fade" id="createDocument" tabindex="-1" role="dialog" aria-labelledby="createDocumentLabel" aria-hidden="true">
+                                  <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Create New Document</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                                      </div>
+                                      <div class="modal-body">
+                                                <!--Create new document here-->
+                                            <form action="/doc/document/create" method="POST">
+                                              <label for="subject">Subject:</label>
+                                              <input type="text" name="subject" placeholder="Subject of Document" class="form-control" required>
+                                              <input type="text" name="employee_id" hidden required>
+                                              <br><br>
+                                              <label for="description">Description:</label>
+                                              <textarea name="description" placeholder="Description of Document" class="form-control" required rows="4"></textarea>
+                                              <br><br>
+                                              <label for="status">Status:</label> <br>
+                                                  <label class="radio">
+                                                    <input type="radio" name="status" value="Draft">
+                                                      Draft
+                                                  </label> <br>
+                                                  <label class="radio">
+                                                    <input type="radio" name="status" value="Published">
+                                                      Publish
+                                                  </label>
+                                              <br><br>
+                                              <label for="application_id">Application:</label>
+                                              <select name="application_id" placeholder="Application" class="form-control" required>
+                                                <option value=""> --Select-- </option>
+                                                <% applications.forEach(application=>{ %>
+                                                  <option value="<%=application.id%>"><%=application.title%></option>
+                                                <% })%>
+                                            </select>
+                                            <br><br>
+                                            <label for="category_id">Category:</label>
+                                            <select name="category_id" placeholder="Document Category" class="form-control" required>
+                                                <option value=""> --Select-- </option>
+                                                <% categories.forEach(category=>{ %>
+                                                  <option value="<%=category.id%>"><%=category.title%></option>
+                                                <% })%>
+                                            </select>
+                                            <br><br>
+                                            <label for="type_id">Document Type:</label>
+                                            <select name="type_id" placeholder="Document Type" class="form-control" required>
+                                                <option value=""> --Select-- </option>
+                                                <% types.forEach(type=>{ %>
+                                                  <option value="<%=type.id%>"><%=type.name%></option>
+                                                <% })%>
+                                            </select>
+                                              <br><br>
+                                              <button type="submit" class="form-control btn btn-primary">Create Document</button>
+                                            </form>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                            <% if (documents.length == 0) { %>
+                                <h4 id="theme-start" class="section-title">You have no Documentations</h4>
+                                
+                                
+                            <% } else { %>
+                            <div class="meta"><i class="far fa-clock"></i> Last updated: <%= documents[documents.length-1].updatedAt %></div>
+                                    
+                                    <!-- All documentations   -->
+                                <!-- <h2 id="theme-start" class="section-title">All Documentations</h2> -->
+                                <section id="premium-themes" class="doc-section">
+                                <h2 id="theme-start" class="section-title">Published Documentations</h2>
+                                    <div class="section-block">
+                                        <div class="row">
+                                        <% documents.forEach(function (document){
+                                            if (document.status == 'Published') {
+                                        %>
+                                
+    	                                    <div class="col-md-4 col-12 mb-3">
+                                                <div class="theme-card">
+                                                    <a href="/doc/document/<%=document.id%>"><i class="icon icon_book"></i></a>
+                                                    <div class="card-block">
+                                                        <h4 class="card-title"><%= document.subject %></h4>
+                                                        <p class="card-text"><%= document.description %></p>
+                                                    </div><!--//card-block-->
+                                                    <a class="mask" href="/doc/document/<%=document.id%>"><i class="icon fa fa-search-plus"></i></a>
+                                                </div><!--//theme-card-->
+                                            </div>
+                                            
+                                            <% }
+                                        }); %>
+                                        </div><!--//row-->
+                                    </div><!--//section-block-->
+                                </section><!--//doc-section-->
+                                <section id="free-themes" class="doc-section">
+                                <h2 class="section-title" href="#free-themes">Draft Documentations</h2>
+                                    <div class="section-block">
+                                        <div class="row">
+                                        <% documents.forEach(function (document){
+                                            if (document.status !== 'Published') {
+                                
+                                        %>
+    	                                    <div class="col-md-4 col-12 mb-3">
+                                                <div class="theme-card p-1">
+                                                    <a href="/doc/document/<%=document.id%>"><i class="icon icon_book"></i></a>
+                                                    <div class="card-block">
+                                                        <h4 class="card-title"><%= document.subject %></h4>
+                                                        <p class="card-text"><%= document.description %></p>
+                                                    </div><!--//card-block-->
+                                                    <a class="mask" href="/doc/document/<%=document.id%>"><i class="icon fa fa-search-plus"></i></a>
+                                                </div><!--//theme-card-->
+                                            </div>
+                                            <% }
+                                          }) %>
+                                        </div><!--//row-->
+                                    </div><!--//section-block-->
+                                </section><!--//doc-section-->
+                            <% } %>
+                                                        
+                        </div><!--//content-inner-->
+                    </div><!--//doc-content-->
+                    <div class="doc-sidebar col-md-3 col-12 order-0 d-none d-md-flex">
+                        <div id="doc-nav" class="doc-nav">
+                            <nav id="doc-menu" class="nav doc-menu flex-column sticky">
+                                <a class="nav-link scrollto">Published Documentations</a>
+                                <a class="nav-link scrollto" href="#free-themes">Draft Documentations</a> 
+                            </nav><!--//doc-menu-->
+                        </div>
+                    </div><!--//doc-sidebar-->
+                </div><!--//doc-body-->              
+            </div><!--//container-->
+        </div><!--//doc-wrapper-->
+        
+    </div><!--//page-wrapper-->
+<% } else { %>
+
+<% } %>
+<!--DOCUMENT VIEW END HERE-->
+

@@ -1,0 +1,286 @@
+<!--AUTHOR VIEW STARTS HERE -->
+<!--complete logic for author view-->
+<% if (title == 'Create Employee') { %>
+    <div class="col-sm-12">    
+        <div id="doc-header" class="doc-header my-5 text-center">
+            <h3 class="doc-title"><span aria-hidden="true" class="icon icon_profile"></span> Create new Account </h3>
+        </div>
+        <div class="jumbotron col-sm-8 m-auto">
+            <form action="/doc/employee/create" method="POST">
+              <label for="first_name">Employee First Name:</label> 
+              <input type="text" name="first_name" placeholder="Employee First Name" class="form-control" autofocus required>
+              <br><br>
+              <label for="last_name">Employee Last Name:</label>
+              <input type="text" name="last_name" placeholder="Employee Last Name" class="form-control" required>
+              <br><br>
+              <label for="role">Employee Role:</label>
+              <select name="role" placeholder="Employee Role" class="form-control" required>
+                  <option value=""> --Select-- </option>
+                  <option value="Manager">Manager</option>
+                  <option value="Staff">Staff</option>
+              </select>
+              <br><br>
+              <label for="date_of_birth">Employee Date of Birth:</label>
+              <input type="date" name="dob" placeholder="Employee Date of Birth" class="form-control" required>
+              <br><br>
+              <label for="address">Employee Address:</label>
+              <input type="text" name="address" placeholder="Employee Address" class="form-control" required>
+              <br><br>
+              <label for="department">Employee Department:</label>
+              <select name="department" placeholder="Employee Department" class="form-control" required>
+                  <option value=""> --Select-- </option>
+                  <option value="Developer">Developer</option>
+                  <option value="Designer">Designer</option>
+              </select>
+              <br><br>
+              <label for="email">Employee Email Address:</label>
+              <input type="email" name="email" placeholder="hello@manifest.com" class="form-control" required>
+              <br><br>
+              <button type="submit" class="form-control btn btn-primary">Create Employee</button>
+            </form>
+        </div>
+    </div>
+<% } else if (title == 'Delete Employee') { %>
+     
+<% } else if (title == 'Update Employee') { %>
+    <div class="col-sm-12">    
+        <div class="jumbotron col-sm-8 m-auto">
+            <form action="/doc/employee/<%= employee.id %>/update" method="post">
+              <label for="first_name">Employee First Name:</label>
+              <input type="text" name="first_name" value="<%= employee.first_name %>" class="form-control" required>
+              <br><br>
+              <label for="last_name">Employee Last Name:</label>
+              <input type="text" name="last_name" value="<%= employee.last_name %>" class="form-control" required>
+              <br><br>
+              <label for="role">Employee Role:</label>
+              <select type="text" name="role" placeholder="Employee Role" class="form-control" required>
+                  <% if (employee.role == "Manager"){ %>
+                  <option value="Manager" selected>Manager</option>
+                  <option value="Staff">Staff</option>
+                  <% } else { %>
+                    <option value="Manager">Manager</option>
+                    <option value="Staff" selected>Staff</option>
+                  <% } %>
+              </select>
+              <br><br>
+              <label for="date_of_birth">Employee Date of Birth:</label>
+              <input type="date" name="dob" value="<%= employee.dob %>" class="form-control" required>
+              <br><br>
+              <label for="address">Employee Address:</label>
+              <input type="text" name="address" value="<%= employee.address %>" class="form-control" required>
+              <br><br>
+              <label for="department">Employee Department:</label>
+              <input type="text" name="department" value="<%= employee.department %>" class="form-control" required>
+              <br><br>
+              <label for="email">Employee Email Address:</label>
+              <input type="email" name="email" value="<%= employee.email %>" class="form-control" required>
+              <br><br>
+              <button type="submit" class="form-control btn btn-primary">Update Employee</button>
+            </form>
+        </div>
+    </div>
+<% } else if (title == 'Employee Details') { %>
+        <script>
+            console.log('employee details page');
+            //set session to store logged in employee details
+            let employee = `<%= employee.id %>`;
+            sessionStorage.setItem("employee", employee);
+            let employeeData = sessionStorage.getItem("employee");
+            console.log(employeeData);
+        </script>
+    <div class="col-sm-12 my-5">    
+        <div class="">
+            <h2>Welcome back <%= employee.first_name %> <%= employee.last_name %></h2>
+            <p>Role:  <%= employee.role ? employee.role : 'Not Set' %></p>
+            <p>Department:  <%= employee.department %></p>
+            <a href="/doc/employee/<%= employee.id %>/update">Edit Profile</a> | <a href="/doc/employee/<%= employee.id %>/delete">Delete Account</a>
+            <br>
+            <h5 class="text-center">My Documentations</h5>
+            <!-- My documentations -->
+            <section id="premium-themes" class="doc-section">
+                <div class="section-block">
+                    <div class="row">
+                    <%
+                        if (documents.length == 0) {
+                    %>
+                        <h6 class="text-center col">You have no documentations. </h6>
+                    <% }else {  documents.forEach(function (document){ %>
+            
+                        <div class="col-md-4 col-12 mb-3">
+                            <div class="theme-card">
+                                <a href="/doc/document/<%=document.id%>"><i class="icon icon_book"></i></a>
+                                <div class="card-block">
+                                    <h4 class="card-title"><%= document.subject %></h4>
+                                    <p class="card-text"><%= document.description %></p>
+                                </div><!--//card-block-->
+                                <a class="mask" href="/doc/document/<%=document.id%>"><i class="icon fa fa-search-plus"></i></a>
+                            </div><!--//theme-card-->
+                        </div>
+                        
+                        <% });
+                    } %>
+                    </div><!--//row-->
+                </div><!--//section-block-->
+            </section><!--//doc-section-->
+        </div>
+        <div>
+            <h5 class="text-center my-2">What would you like to do?</h5>
+            
+            <% if (employee.role === 'Manager'){ %>
+            <section class="cards-section text-center">
+                <div class="container">
+                    <div id="cards-wrapper" class="cards-wrapper row">
+                        <div class="item item-green col-lg-4 col-6">
+                            <div class="item-inner">
+                                <div class="icon-holder">
+                                    <i class="icon icon_datareport_alt"></i>
+                                </div><!--//icon-holder-->
+                                <h3 class="title">Dashboard</h3>
+                                <p class="intro">View Charts & Graphical Information</p>
+                                <!-- <a class="link" href="charts.html"><span></span></a> -->
+                                <a class="link" href="#"><span></span></a>
+                            </div><!--//item-inner-->
+                        </div><!--//item-->
+                        <div class="item item-pink item-2 col-lg-4 col-6">
+                            <div class="item-inner">
+                                <div class="icon-holder">
+                                    <span aria-hidden="true" class="icon icon_book"></span>
+                                </div><!--//icon-holder-->
+                                <h3 class="title">Documents</h3>
+                                <p class="intro">View Created Documentations</p>
+                                <!-- <a class="link" href="components.html"><span></span></a> -->
+                                <a class="link" href="/doc/documents"><span></span></a>
+                            </div><!--//item-inner-->
+                        </div><!--//item-->
+                        <div class="item item-blue col-lg-4 col-6">
+                            <div class="item-inner">
+                                <div class="icon-holder">
+                                    <span aria-hidden="true" class="icon icon_profile"></span>
+                                </div><!--//icon-holder-->
+                                <h3 class="title">Employees</h3>
+                                <p class="intro">View Employee's Profiles & Designation</p>
+                               <!-- <a class="link" href="start.html"><span></span></a> -->
+                                <a class="link" href="/doc/employees"><span></span></a>
+                            </div><!--//item-inner-->
+                        </div><!--//item-->
+                        <div class="item item-purple col-lg-4 col-6">
+                            <div class="item-inner">
+                                <div class="icon-holder">
+                                    <span aria-hidden="true" class="icon icon_lifesaver"></span>
+                                </div><!--//icon-holder-->
+                                <h3 class="title">Categories</h3>
+                                <p class="intro">View and Edit Documentation Categories</p>
+                               <!-- <a class="link" href="faqs.html"><span></span></a> -->
+                                <a class="link" href="/doc/categories"><span></span></a>
+                            </div><!--//item-inner-->
+                        </div><!--//item-->
+                        <div class="item item-primary col-lg-4 col-6">
+                            <div class="item-inner">
+                                <div class="icon-holder">
+                                    <span aria-hidden="true" class="icon icon_genius"></span>
+                                </div><!--//icon-holder-->
+                                <h3 class="title">Applications</h3>
+                                <p class="intro">View and Edit Documentation Applications</p>
+                                <a class="link" href="/doc/applications"><span></span></a>
+                            </div><!--//item-inner-->
+                        </div><!--//item-->
+                        <div class="item item-orange col-lg-4 col-6">
+                            <div class="item-inner">
+                                <div class="icon-holder">
+                                    <span aria-hidden="true" class="icon icon_gift"></span>
+                                </div><!--//icon-holder-->
+                                <h3 class="title">Type</h3>
+                                <p class="intro">View and Edit Documentation Types</p>
+                               <!-- <a class="link" href="license.html"><span></span></a> -->
+                                <a class="link" href="/doc/types"><span></span></a>
+                            </div><!--//item-inner-->
+                        </div><!--//item-->
+                    </div><!--//cards-->
+                </div>
+            </section>
+            <% } else { %>
+            <section class="cards-section text-center">
+                <div class="container">
+                    <div id="cards-wrapper" class="cards-wrapper row">
+                        <div class="item item-green col-lg-4 col-6">
+                            <div class="item-inner">
+                                <div class="icon-holder">
+                                    <i class="icon icon_datareport_alt"></i>
+                                </div><!--//icon-holder-->
+                                <h3 class="title">Dashboard</h3>
+                                <p class="intro">View charts & graphical information tailored to you</p>
+                                <!-- <a class="link" href="charts.html"><span></span></a> -->
+                                <a class="link" href="#"><span></span></a>
+                            </div><!--//item-inner-->
+                        </div><!--//item-->
+                        <div class="item item-pink item-2 col-lg-4 col-6">
+                            <div class="item-inner">
+                                <div class="icon-holder">
+                                    <span aria-hidden="true" class="icon icon_book"></span>
+                                </div><!--//icon-holder-->
+                                <h3 class="title">Documents</h3>
+                                <p class="intro">View and edit your documentation</p>
+                                <!-- <a class="link" href="components.html"><span></span></a> -->
+                                <a class="link" href="/doc/documents"><span></span></a>
+                            </div><!--//item-inner-->
+                        </div><!--//item-->
+                        <div class="item item-blue col-lg-4 col-6">
+                            <div class="item-inner">
+                                <div class="icon-holder">
+                                    <span aria-hidden="true" class="icon icon_profile"></span>
+                                </div><!--//icon-holder-->
+                                <h3 class="title">Employees</h3>
+                                <p class="intro">View other employees' profiles & designation</p>
+                               <!-- <a class="link" href="start.html"><span></span></a> -->
+                                <a class="link" href="/doc/employees"><span></span></a>
+                            </div><!--//item-inner-->
+                        </div><!--//item-->
+                    </div><!--//cards-->
+                </div>
+            </section>
+            <% } %>
+        </div>
+    </div>
+<% } else if (title == 'Employee List') { %>
+    <div class="col-sm-12">    
+        <div class="">
+            <section class="cards-section text-center">
+                <div class="container">
+                    <div id="doc-header" class="doc-header text-center">
+                        <h3 class="doc-title"><span aria-hidden="true" class="icon icon_profile"></span> Login As </h3>
+                        <div class="meta"><i class="far fa-clock"></i> Last Edited - <%= employees[employees.length - 1].updatedAt %></div>
+                    </div>
+                    <div id="cards-wrapper" class="cards-wrapper row">
+                    <% 
+                    if (employees.length !== 0) {
+                        employees.forEach(function(employee) { %>
+                            <div class="item item-green col-lg-4 col-6">
+                                <div class="item-inner">
+                                    <div class="icon-holder">
+                                        <i class="icon icon_profile"></i>
+                                    </div><!--//icon-holder-->
+                                    <h3 class="title"><%= employee.first_name %> <%= employee.last_name %></h3>
+                                    <p class="intro">Role : <%= employee.role ? employee.role : 'Not Set' %></p>
+                                    <!-- <a class="link" href="charts.html"><span></span></a> -->
+                                    <a class="link" href="/doc/employee/<%= employee.id %>"><span></span></a>
+                                </div><!--//item-inner-->
+                            </div><!--//item-->
+                            <% });
+                            } else { %>
+                            <div class="col-12">
+                                <div class="item-inner">
+                                    <h3>Oops! No Registered Employee.</h3>
+                                    <p><a class="link" href="/doc/employee/create">Kindly create an account here</a></p>
+                                </div><!--//item-inner-->
+                            </div><!--//item-->
+                            <% } %>
+                    </div><!--//cards-->
+                </div>
+            </section>
+    </div>
+    </div>
+<% } else { %>
+
+<% } %>
+<!--AUTHOR VIEW END HERE-->
+

@@ -1,0 +1,252 @@
+ <% if (title == 'Category List'){ %>
+    <div class="page-wrapper col-sm-12">
+        <!-- ******Header****** -->
+        
+     <div class="doc-wrapper">
+            <div class="container">
+                <div id="doc-header" class="doc-header text-center">
+                    <h1 class="doc-title"><span aria-hidden="true" class="icon icon_genius"></span> Dashboard</h1>
+                    <div class="meta"><i class="far fa-clock"></i> Last updated: February 20th, 2020</div>
+                </div><!--//doc-header-->
+                
+                <div id="showcase" class="doc-body row">
+                    <div class="doc-content col-md-9 col-12 order-1">
+                        <div class="content-inner">
+                            <section id="how-tos" class="doc-section">
+                                
+                            <h2 id="top" class="section-title">How-Tos</h2>
+                                <div class="section-block">
+                                    <div class="row">
+                                    <% categories.forEach(function (category){
+                                    //if statement
+                                    %>
+                            
+	                                    <div class="col-md-4 col-12 mb-3">
+                                            <div class="theme-card">
+                                                <a href="" data-toggle="modal" data-target="#categoryModal"><img class="img-fluid" src="/assets/images/demo/theme-instance.png" alt="screenshot" /></a>
+                                                <div class="card-block">
+                                                    <h4 class="card-title"><%= category.title %></h4>
+                                                    <p class="card-text"><%= category.description %></p>
+                                                </div><!--//card-block-->
+                                                <a class="mask" href="" data-toggle="modal" data-target="#categoryModal"><i class="icon fa fa-search-plus"></i></a>
+                                            </div><!--//theme-card-->
+                                        </div>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                          <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                              <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel"><%= category.title %></h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                  <span aria-hidden="true">&times;</span>
+                                                </button>
+                                              </div>
+                                              <div class="modal-body">
+                                                <p class="card-text"><%= category.description %></p>
+                                              </div>
+                                              <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <% }); %>
+                                    </div><!--//row-->
+                                </div><!--//section-block-->
+                            </section><!--//doc-section-->
+                            
+                        <!-- <section id="" class="doc-section"> -->
+                            
+                            <section id="common-issues" class="doc-section">
+                            <h2 id="top" class="section-title">Common Issues</h2>
+                                <div class="section-block">
+                                    <div class="row">
+                                    <% categories.forEach(function (category){
+                                    //if statement
+                                    %>
+                            
+	                                    <div class="col-md-4 col-12 mb-3">
+                                            <div class="theme-card">
+                                                <a href="" data-toggle="modal" data-target="#categoryModal"><img class="img-fluid" src="/assets/images/demo/theme-instance.png" alt="screenshot" /></a>
+                                                <div class="card-block">
+                                                    <h4 class="card-title"><%= category.title %></h4>
+                                                    <p class="card-text"><%= category.description %></p>
+                                                </div><!--//card-block-->
+                                                <a class="mask" href="" data-toggle="modal" data-target="#categoryModal"><i class="icon fa fa-search-plus"></i></a>
+                                            </div><!--//theme-card-->
+                                        </div>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                          <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                              <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel"><%= category.title %></h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                  <span aria-hidden="true">&times;</span>
+                                                </button>
+                                              </div>
+                                              <div class="modal-body">
+                                                <p class="card-text"><%= category.description %></p>
+                                              </div>
+                                              <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <% }); %>
+                                    </div><!--//row-->
+                                </div><!--//section-block-->
+                            </section><!--//doc-section-->
+                    
+                        <section id="database-schema" class="doc-section">  
+                            <h2 id="top" class="section-title">Database Schema</h2>
+                                <div class="section-block">
+                                    <div class="row">
+                                    <% categories.forEach(function (category){
+                                    //if statement
+                                    %>
+                            
+	                                    <div class="col-md-4 col-12 mb-3">
+                                            <div class="theme-card">
+                                                <a href="" data-toggle="modal" data-target="#categoryModal"><img class="img-fluid" src="/assets/images/demo/theme-instance.png" alt="screenshot" /></a>
+                                                <div class="card-block">
+                                                    <h4 class="card-title"><%= category.title %></h4>
+                                                    <p class="card-text"><%= category.description %></p>
+                                                </div><!--//card-block-->
+                                                <a class="mask" href="" data-toggle="modal" data-target="#categoryModal"><i class="icon fa fa-search-plus"></i></a>
+                                            </div><!--//theme-card-->
+                                        </div>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                          <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                              <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel"><%= category.title %></h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                  <span aria-hidden="true">&times;</span>
+                                                </button>
+                                              </div>
+                                              <div class="modal-body">
+                                                <p class="card-text"><%= category.description %></p>
+                                              </div>
+                                              <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <% }); %>
+                                    </div><!--//row-->
+                                </div><!--//section-block-->
+                            </section><!--//doc-section-->
+                            
+                    
+                        <section id="model" class="doc-section">
+                            <h2 id="top" class="section-title">Model</h2>
+                                <div class="section-block">
+                                    <div class="row">
+                                    <% categories.forEach(function (category){
+                                    //if statement
+                                    %>
+                            
+	                                    <div class="col-md-4 col-12 mb-3">
+                                            <div class="theme-card">
+                                                <a href="" data-toggle="modal" data-target="#categoryModal"><img class="img-fluid" src="/assets/images/demo/theme-instance.png" alt="screenshot" /></a>
+                                                <div class="card-block">
+                                                    <h4 class="card-title"><%= category.title %></h4>
+                                                    <p class="card-text"><%= category.description %></p>
+                                                </div><!--//card-block-->
+                                                <a class="mask" href="" data-toggle="modal" data-target="#categoryModal"><i class="icon fa fa-search-plus"></i></a>
+                                            </div><!--//theme-card-->
+                                        </div>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                          <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                              <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel"><%= category.title %></h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                  <span aria-hidden="true">&times;</span>
+                                                </button>
+                                              </div>
+                                              <div class="modal-body">
+                                                <p class="card-text"><%= category.description %></p>
+                                              </div>
+                                              <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <% }); %>
+                                    </div><!--//row-->
+                                </div><!--//section-block-->
+                            </section><!--//doc-section-->
+                                                        
+                        
+                        <section id="routes" class="doc-section">
+                            <h2 id="top" class="section-title">Routes</h2>
+                                <div class="section-block">
+                                    <div class="row">
+                                    <% categories.forEach(function (category){
+                                    //if statement
+                                    %>
+                            
+	                                    <div class="col-md-4 col-12 mb-3">
+                                            <div class="theme-card">
+                                                <a href="" data-toggle="modal" data-target="#categoryModal"><img class="img-fluid" src="/assets/images/demo/theme-instance.png" alt="screenshot" /></a>
+                                                <div class="card-block">
+                                                    <h4 class="card-title"><%= category.title %></h4>
+                                                    <p class="card-text"><%= category.description %></p>
+                                                </div><!--//card-block-->
+                                                <a class="mask" href="" data-toggle="modal" data-target="#categoryModal"><i class="icon fa fa-search-plus"></i></a>
+                                            </div><!--//theme-card-->
+                                        </div>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="routesModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                          <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                              <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel"><%= category.title %></h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                  <span aria-hidden="true">&times;</span>
+                                                </button>
+                                              </div>
+                                              <div class="modal-body">
+                                                <p class="card-text"><%= category.description %></p>
+                                              </div>
+                                              <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <% }); %>
+                                    </div><!--//row-->
+                                </div><!--//section-block-->
+                            </section><!--//doc-section-->
+                        
+                                                        
+                        </div><!--//content-inner-->
+                    </div><!--//doc-content-->
+                    <div class="doc-sidebar col-md-3 col-12 order-0 d-none d-md-flex">
+                        <div id="doc-nav" class="doc-nav">
+                            <nav id="doc-menu" class="nav doc-menu flex-column sticky">
+                              <!--  <a class="nav-link scrollto" href="#top">Category List</a> -->
+                                <a class="nav-link scrollto" href="#how-tos">How-Tos</a>
+                                <a class="nav-link scrollto" href="#common-issues">Common Issues</a>
+                                <a class="nav-link scrollto" href="#database-schema">Database Schema</a>
+                                <a class="nav-link scrollto" href="#model">Model</a>
+                                <a class="nav-link scrollto" href="#routes">Routes</a>
+                            </nav><!--//doc-menu-->
+                        </div>
+                    </div><!--//doc-sidebar-->
+                </div><!--//doc-body-->              
+            </div><!--//container-->
+        </div><!--//doc-wrapper-->
+        
+    </div><!--//page-wrapper-->
+    <% } %>
+    
+        
